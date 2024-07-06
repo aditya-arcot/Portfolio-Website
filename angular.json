@@ -38,7 +38,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/portfolio-website",
+                        "outputPath": "dist",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": ["zone.js"],
@@ -48,7 +48,11 @@
                         "scripts": []
                     },
                     "configurations": {
-                        "production": {
+                        "prod": {
+                            "optimization": true,
+                            "extractLicenses": true,
+                            "sourceMap": false,
+                            "namedChunks": false,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -63,25 +67,23 @@
                             ],
                             "outputHashing": "all"
                         },
-                        "development": {
+                        "dev": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": true,
+                            "namedChunks": true
                         }
                     },
-                    "defaultConfiguration": "production"
+                    "defaultConfiguration": "prod"
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
-                        "production": {
-                            "buildTarget": "portfolio-website:build:production"
-                        },
-                        "development": {
-                            "buildTarget": "portfolio-website:build:development"
+                        "dev": {
+                            "buildTarget": "portfolio-website:build:dev"
                         }
                     },
-                    "defaultConfiguration": "development"
+                    "defaultConfiguration": "dev"
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
