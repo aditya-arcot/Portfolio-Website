@@ -41,9 +41,9 @@ jobs:
             - name: start docker
               run: |
                   REPO=${{ env.REPO }} \
-                      IMAGE=${{ env.IMAGE }} \
-                      PORT=${{ secrets.PORT }} \
-                      docker compose up -d
+                    IMAGE=${{ env.IMAGE }} \
+                    PORT=${{ secrets.PORT }} \
+                    docker compose up -d
 
             - name: configure, restart nginx
               if: github.ref_name == 'main'
