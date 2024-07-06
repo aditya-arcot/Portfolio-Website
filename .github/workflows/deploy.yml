@@ -14,6 +14,9 @@ jobs:
         runs-on: mbp-13
         environment: prod
         steps:
+            - name: unlock keychain
+              run: security unlock-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} login.keychain
+
             - name: checkout
               uses: actions/checkout@v3
 
