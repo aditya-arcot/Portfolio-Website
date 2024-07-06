@@ -1,0 +1,53 @@
+name: CI/CD Pipeline
+on:
+    push:
+        branches:
+            - main
+
+env:
+    REPO: $(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')
+    IMAGE_TAG: $(date +%Y-%m-%d).${{ github.run_number }}-${{ github.run_attempt }}-${{ github.run_id }}
+
+jobs:
+    deploy:
+        name: Deploy
+        runs-on: mbp-13
+        environment: prod
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+
+            - name: install, build
+              run: |
+                  npm ci
+                  npm run build
+
+            - name: copy files
+              run: |
+                  mkdir stage
+                  cp -r Dockerfile nginx.conf dist stage/
+
+            - name: build, push docker image
+              run: |
+                  cd stage/
+                  IMAGE=${{ secrets.DOCKER_REGISTRY }}/${{ env.REPO }}:${{ env.IMAGE_TAG }}
+                  docker build -t $IMAGE .
+                  docker push $IMAGE
+                  echo "IMAGE=${IMAGE}" >> $GITHUB_ENV
+
+            - name: start docker
+              run: |
+                  REPO=${{ env.REPO }} \
+                      IMAGE=${{ env.IMAGE }} \
+                      PORT=${{ secrets.PORT }} \
+                      docker compose up -d
+
+            - name: configure, restart nginx
+              if: github.ref_name == 'main'
+              run: |
+                  sed -e "s/{PORT}/${{ secrets.PORT }}/g" \
+                    portfolio-website.conf > portfolio-website.conf.tmp
+                  mv portfolio-website.conf.tmp portfolio-website.conf
+                  cp portfolio-website.conf /usr/local/etc/nginx/servers/
+                  nginx -t
+                  brew services restart nginx
