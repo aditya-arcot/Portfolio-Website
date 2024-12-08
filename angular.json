@@ -42,12 +42,16 @@
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": ["zone.js"],
-                        "tsConfig": "tsconfig.app.json",
-                        "assets": ["src/favicon.ico", "src/assets"],
+                        "tsConfig": "tsconfig.json",
+                        "assets": [
+                            {
+                                "glob": "**/*",
+                                "input": "public"
+                            }
+                        ],
                         "styles": [
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "node_modules/bootstrap-icons/font/bootstrap-icons.min.css",
-                            "src/styles.css",
                             "src/styles.css"
                         ],
                         "scripts": [
@@ -60,6 +64,7 @@
                             "extractLicenses": true,
                             "sourceMap": false,
                             "namedChunks": false,
+                            "outputHashing": "all",
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -71,14 +76,14 @@
                                     "maximumWarning": "2kb",
                                     "maximumError": "4kb"
                                 }
-                            ],
-                            "outputHashing": "all"
+                            ]
                         },
                         "dev": {
                             "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true,
-                            "namedChunks": true
+                            "namedChunks": true,
+                            "outputHashing": "none"
                         }
                     },
                     "defaultConfiguration": "prod"
@@ -93,10 +98,7 @@
                     "defaultConfiguration": "dev"
                 },
                 "extract-i18n": {
-                    "builder": "@angular/build:extract-i18n",
-                    "options": {
-                        "buildTarget": "portfolio-website:build"
-                    }
+                    "builder": "@angular/build:extract-i18n"
                 },
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
@@ -108,6 +110,6 @@
         }
     },
     "cli": {
-        "schematicCollections": ["@angular-eslint/schematics"]
+        "schematicCollections": ["angular-eslint"]
     }
 }
