@@ -8,6 +8,9 @@ concurrency:
     group: deploy-${{ github.ref_name }}
     cancel-in-progress: true
 
+permissions:
+    contents: read
+
 env:
     REPO: $(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')
     IMAGE_TAG: $(date +%Y-%m-%d).${{ github.run_number }}-${{ github.run_attempt }}-${{ github.run_id }}
