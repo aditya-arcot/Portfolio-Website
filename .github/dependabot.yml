@@ -8,6 +8,8 @@ updates:
           dependencies:
               patterns:
                   - '*'
+      assignees:
+          - 'aditya-arcot'
 
     - package-ecosystem: 'docker'
       directory: '/'
@@ -17,6 +19,8 @@ updates:
           docker:
               patterns:
                   - '*'
+      assignees:
+          - 'aditya-arcot'
 
     - package-ecosystem: 'github-actions'
       directory: '/'
@@ -26,3 +30,5 @@ updates:
           github-actions:
               patterns:
                   - '*'
+      assignees:
+          - 'aditya-arcot'
