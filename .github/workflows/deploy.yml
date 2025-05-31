@@ -27,6 +27,14 @@ jobs:
             - name: checkout
               uses: actions/checkout@v4
 
+            - name: setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 'lts/*'
+                  check-latest: true
+                  cache: 'npm'
+                  cache-dependency-path: package-lock.json
+
             - name: install, build
               run: |
                   npm ci
