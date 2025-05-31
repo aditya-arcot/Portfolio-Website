@@ -61,7 +61,7 @@ jobs:
                     PORT=${{ secrets.PORT }} \
                     docker compose up -d
 
-            - name: configure, restart nginx
+            - name: configure, test, reload nginx
               if: github.ref_name == 'main'
               run: |
                   sed -e "s/{PORT}/${{ secrets.PORT }}/g" \
@@ -69,4 +69,4 @@ jobs:
                   mv portfolio-website.conf.tmp portfolio-website.conf
                   cp portfolio-website.conf /usr/local/etc/nginx/servers/
                   nginx -t
-                  brew services restart nginx
+                  nginx -s reload
