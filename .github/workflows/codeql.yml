@@ -5,14 +5,14 @@ on:
         branches:
             - main
         paths:
-            - '.github/workflows/**'
-            - 'src/**'
+            - '.github/workflows/*.yml'
+            - 'src/**/*.ts'
     pull_request:
         branches:
             - main
         paths:
-            - '.github/workflows/**'
-            - 'src/**'
+            - '.github/workflows/*.yml'
+            - 'src/**/*.ts'
     schedule:
         - cron: '30 13 * * 6'
 
@@ -28,13 +28,13 @@ jobs:
             matrix:
                 include:
                     - language: actions
-                    - language: javascript-typescript
+                    - language: typescript
         steps:
             - name: checkout
               uses: actions/checkout@v4
 
             - name: setup node
-              if: matrix.language == 'javascript-typescript'
+              if: matrix.language == 'typescript'
               uses: actions/setup-node@v4
               with:
                   node-version: 'lts/*'
@@ -43,7 +43,7 @@ jobs:
                   cache-dependency-path: package-lock.json
 
             - name: install, build
-              if: matrix.language == 'javascript-typescript'
+              if: matrix.language == 'typescript'
               run: |
                   npm ci
                   npm run build
@@ -56,17 +56,17 @@ jobs:
                   build-mode: none
                   config: |
                       paths:
-                      - .github/workflows
+                      - '.github/workflows/*.yml'
 
-            - name: initialize CodeQL for javascript-typescript
-              if: matrix.language == 'javascript-typescript'
+            - name: initialize CodeQL for typescript
+              if: matrix.language == 'typescript'
               uses: github/codeql-action/init@v3
               with:
-                  languages: javascript-typescript
+                  languages: typescript
                   build-mode: none
                   config: |
                       paths:
-                      - src
+                      - 'src/**/*.ts'
 
             - name: perform CodeQL analysis
               uses: github/codeql-action/analyze@v3
