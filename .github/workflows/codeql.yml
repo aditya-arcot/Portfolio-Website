@@ -24,7 +24,7 @@ jobs:
                     - language: actions
                       build-mode: none
                     - language: javascript-typescript
-                      build-mode: manual
+                      build-mode: none
         steps:
             - name: checkout
               uses: actions/checkout@v4
