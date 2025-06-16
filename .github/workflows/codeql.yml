@@ -28,9 +28,7 @@ jobs:
             matrix:
                 include:
                     - language: actions
-                      build-mode: none
                     - language: javascript-typescript
-                      build-mode: none
         steps:
             - name: checkout
               uses: actions/checkout@v4
@@ -50,14 +48,25 @@ jobs:
                   npm ci
                   npm run build
 
-            - name: initialize CodeQL
+            - name: initialize CodeQL for actions
+              if: matrix.language == 'actions'
               uses: github/codeql-action/init@v3
               with:
-                  languages: ${{ matrix.language }}
-                  build-mode: ${{ matrix.build-mode }}
+                  languages: actions
+                  build-mode: none
                   config: |
                       paths:
-                          ${{ matrix.language == 'actions' && '.github/workflows' || 'src' }}
+                      - .github/workflows
+
+            - name: initialize CodeQL for javascript-typescript
+              if: matrix.language == 'javascript-typescript'
+              uses: github/codeql-action/init@v3
+              with:
+                  languages: javascript-typescript
+                  build-mode: none
+                  config: |
+                      paths:
+                      - src
 
             - name: perform CodeQL analysis
               uses: github/codeql-action/analyze@v3
