@@ -2,8 +2,8 @@
     "name": "portfolio-website",
     "private": true,
     "scripts": {
-        "build": "ng build",
-        "build:dev": "ng build --watch --configuration dev",
+        "build": "ng build --verbose",
+        "build:dev": "ng build --verbose --watch --configuration dev",
         "knip": "knip",
         "lint": "ng lint --fix --max-warnings=0",
         "prepare": "husky && sort-package-json",
