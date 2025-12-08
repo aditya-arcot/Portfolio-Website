@@ -2,8 +2,11 @@
 const eslint = require('@eslint/js')
 const tseslint = require('typescript-eslint')
 const angular = require('angular-eslint')
+const csseslint = require('@eslint/css')
+const { defineConfig } = require('eslint/config')
+const eslintConfigPrettier = require('eslint-config-prettier/flat')
 
-module.exports = tseslint.config(
+module.exports = defineConfig(
     {
         files: ['**/*.ts'],
         languageOptions: {
@@ -13,9 +16,10 @@ module.exports = tseslint.config(
         },
         extends: [
             eslint.configs.recommended,
-            ...tseslint.configs.strict,
-            ...tseslint.configs.stylistic,
+            ...tseslint.configs.strictTypeChecked,
+            ...tseslint.configs.stylisticTypeChecked,
             ...angular.configs.tsRecommended,
+            eslintConfigPrettier,
         ],
         processor: angular.processInlineTemplates,
         rules: {
@@ -75,5 +79,13 @@ module.exports = tseslint.config(
             ...angular.configs.templateRecommended,
             ...angular.configs.templateAccessibility,
         ],
+    },
+    {
+        files: ['**/*.css'],
+        language: 'css/css',
+        extends: [csseslint.default.configs.recommended],
+        rules: {
+            'css/no-important': 'off',
+        },
     }
 )
