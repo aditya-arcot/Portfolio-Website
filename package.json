@@ -27,15 +27,15 @@
         "bootstrap-icons": "^1.13.1",
         "rxjs": "~7.8.2",
         "sort-package-json": "^3.5.1",
-        "zone.js": "~0.15.1"
+        "zone.js": "~0.16.0"
     },
     "devDependencies": {
-        "@angular-eslint/builder": "^20.6.0",
+        "@angular-eslint/builder": "^21.1.0",
         "@angular/build": "^21.0.2",
         "@angular/cli": "^21.0.2",
         "@angular/compiler-cli": "^21.0.3",
         "@eslint/js": "^9.39.1",
-        "angular-eslint": "20.6.0",
+        "angular-eslint": "21.1.0",
         "eslint": "^9.39.1",
         "husky": "^9.1.7",
         "knip": "^5.72.0",
