@@ -60,6 +60,13 @@ jobs:
                   echo "REPO=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
                   echo "IMAGE_TAG=$(date +%Y-%m-%d).$VERSION" >> $GITHUB_ENV
 
+            - name: modify environment.ts
+              working-directory: src
+              run: |
+                  sed -e "s/{IMAGE_TAG}/${{ env.IMAGE_TAG}}/g" \
+                    environment.ts > environment.ts.tmp
+                  mv environment.ts.tmp environment.ts
+
             - name: build, push docker image
               working-directory: stage
               run: |
