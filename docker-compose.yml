@@ -1,8 +1,9 @@
-name: ${REPO}
+name: portfolio
+
 services:
     app:
         image: ${IMAGE}
-        container_name: portfolio-website
+        container_name: portfolio
         restart: always
         networks:
             - traefik-public

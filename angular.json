@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "portfolio-website": {
+        "portfolio": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:class": {
@@ -92,7 +92,7 @@
                     "builder": "@angular/build:dev-server",
                     "configurations": {
                         "dev": {
-                            "buildTarget": "portfolio-website:build:dev"
+                            "buildTarget": "portfolio:build:dev"
                         }
                     },
                     "defaultConfiguration": "dev"

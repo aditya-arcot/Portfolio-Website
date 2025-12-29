@@ -1,5 +1,5 @@
 {
-    "name": "portfolio-website",
+    "name": "portfolio",
     "private": true,
     "scripts": {
         "build": "ng build --verbose",
