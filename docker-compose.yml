@@ -2,7 +2,7 @@ name: portfolio
 
 services:
     app:
-        image: ${IMAGE}
+        image: ${IMAGE?}
         container_name: portfolio
         restart: always
         networks:
