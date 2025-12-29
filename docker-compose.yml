@@ -2,7 +2,17 @@ name: ${REPO}
 services:
     app:
         image: ${IMAGE}
-        ports:
-            - ${PORT}:80
-        restart: always
         container_name: portfolio-website
+        restart: always
+        networks:
+            - traefik-public
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.portfolio.rule=Host(`aarcot.com`)
+            - traefik.http.routers.portfolio.entrypoints=websecure
+            - traefik.http.routers.portfolio.tls=true
+            - traefik.http.routers.portfolio.tls.certresolver=le
+
+networks:
+    traefik-public:
+        external: true
