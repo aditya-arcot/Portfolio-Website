@@ -11,8 +11,6 @@ services:
             - traefik.enable=true
             - traefik.http.routers.portfolio.rule=Host(`aarcot.com`) || Host(`www.aarcot.com`)
             - traefik.http.routers.portfolio.entrypoints=websecure
-            - traefik.http.routers.portfolio.tls=true
-            - traefik.http.routers.portfolio.tls.certresolver=le
 
 networks:
     traefik-public:
