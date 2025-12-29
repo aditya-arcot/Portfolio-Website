@@ -30,6 +30,9 @@ jobs:
         runs-on: mbp-13
         environment: prod
         steps:
+            - name: unlock keychain
+              run: security unlock-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} login.keychain
+
             - name: checkout
               uses: actions/checkout@v6
 
@@ -67,7 +70,6 @@ jobs:
             - name: build, push docker image
               working-directory: stage
               run: |
-                  security -v unlock-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} ~/Library/Keychains/login.keychain-db
                   IMAGE=${{ secrets.DOCKER_REGISTRY }}/${{ env.REPO }}:${{ env.IMAGE_TAG }}
                   docker build -t $IMAGE -f ../Dockerfile .
                   docker push $IMAGE
